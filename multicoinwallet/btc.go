@@ -55,9 +55,9 @@ func BCHInit() {
 	bchRpcClient, err = rpcclient.New(&rpcclient.ConnConfig{
 		HTTPPostMode: true,
 		DisableTLS:   true,
-		Host:         "192.168.19.130:8102",
-		User:         "root",
-		Pass:         "root",
+		Host:         "127.0.0.1:19001",
+		User:         "admin1",
+		Pass:         "123",
 	}, nil)
 	if err != nil {
 		log.Printf("error creating new btc client: %v", err)
@@ -71,11 +71,19 @@ func GetBtcClient(coin *CoinType) *rpcclient.Client {
 	var client *rpcclient.Client
 
 	if coin.Bip44Index == BITCOIN {
+                
 		client = btcRpcClient
+                fmt.Printf("The btc client: %v\n", client)
+
 	} else if coin.Bip44Index == BITCOIN_CASH {
+               
 		client = bchRpcClient
+                fmt.Printf("The bch client: %v\n", client)
+
 	} else {
+
 		client = nil
+                fmt.Printf("Unknow coin type %d\n", coin.Bip44Index)
 	}
 
 	return client
@@ -84,7 +92,7 @@ func GetBtcClient(coin *CoinType) *rpcclient.Client {
 func BTCGetBalance(coin *CoinType) float64 {
 	client := GetBtcClient(coin)
 
-	amount, err := client.GetBalance("default")
+	amount, err := client.GetBalance("")
 	if err != nil {
 		fmt.Printf("error get balance btc client: %v\n", err)
 		return 0.0
@@ -97,6 +105,11 @@ func BTCGetBalance(coin *CoinType) float64 {
 
 func BTCGetNewAddress(coin *CoinType) string {
 	client := GetBtcClient(coin)
+       
+        if client == nil {
+             log.Printf("Get new address failed: client instance is nil")
+             return ""
+         }
 
 	address, err := client.GetNewAddress("default")
 	if err != nil {

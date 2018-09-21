@@ -27,7 +27,7 @@ func BitcoinRpc() {
 		fmt.Printf("Get new address: %s\n", address)
 	*/
 	fmt.Printf("Test list transactions:\n")
-	transactions := multicoinwallet.ListTransactions(&coinType, "default", 10, 0)
+	transactions := multicoinwallet.ListTransactions(&coinType, "", 10, 0)
 	fmt.Printf("List transactions:\n%s\n", transactions)
 
 	fmt.Printf("Test list receive by address:\n")
@@ -66,17 +66,20 @@ func BCHRpc() {
 	coinType.Bip44Index = multicoinwallet.BITCOIN_CASH
 
 	fmt.Printf("Test BCH start:\n")
+
 	multicoinwallet.BCHInit()
-	fmt.Printf("Test get balance:\n")
+
+/*	fmt.Printf("Test get balance:\n")
 	amount := multicoinwallet.GetBalance(&coinType)
 	fmt.Printf("Balance: %f\n", amount)
 
-	/*	fmt.Printf("Test get new address:\n")
-		address := multicoinwallet.GetNewAddress(&coinType, "bitcoin")
-		fmt.Printf("Get new address: %s\n", address)
-	*/
+
+	fmt.Printf("Test get new address:\n")
+	address := multicoinwallet.GetNewAddress(&coinType, "")
+	fmt.Printf("Get new address: %s\n", address)
+	
 	fmt.Printf("Test list transactions:\n")
-	transactions := multicoinwallet.ListTransactions(&coinType, "default", 10, 0)
+	transactions := multicoinwallet.ListTransactions(&coinType, "", 10, 0)
 	fmt.Printf("List transactions:\n%s\n", transactions)
 
 	fmt.Printf("Test list receive by address:\n")
@@ -84,13 +87,13 @@ func BCHRpc() {
 	fmt.Printf("List receive by address:\n%s\n", payments)
 
 	fmt.Printf("Test get transaction:\n")
-	transaction := multicoinwallet.GetTransaction(&coinType, "dd2701f95a6e3a59868b10465256e839ef130d0a6728fbb92660e4061867ddb2")
+	transaction := multicoinwallet.GetTransaction(&coinType, "9eb2ec9b292ebb8c84a233adf6f97dc57a38c2ae64c56256a3973a9f97e660ef")
 	fmt.Printf("Get transaction:\n%s\n", transaction)
-
+*/
 	fmt.Printf("Test send to address:\n")
-	txId := multicoinwallet.SendToAddress(&coinType, "16kGvbDUATfGfqqNwLxWPzncVWHNJyScjc", 1.0)
+	txId := multicoinwallet.SendToAddress(&coinType, "2MvimyWyMh7XsUm5uSdNajn3XNVcNcPcVo4", 100.0)
 	fmt.Printf("Send to address: %s\n", txId)
-
+/*
 	fmt.Printf("Test wallet lock:\n")
 	lock := multicoinwallet.WalletLock(&coinType)
 	if lock != nil {
@@ -105,6 +108,6 @@ func BCHRpc() {
 	} else {
 		fmt.Printf("Wallet passphrase: ok\n")
 	}
-
+*/
 	fmt.Printf("Test BCH end\n")
 }
